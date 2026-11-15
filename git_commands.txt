@@ -1,0 +1,120 @@
+GIT COMMANDS USED IN THE ASSIGNMENT
+====================================
+
+SETUP
+-----
+mkdir my-project
+    Creates the project folder.
+
+cd my-project
+    Moves into the project folder.
+
+git init
+    Initializes an empty Git repository in the folder (creates the hidden .git directory).
+
+git config --global user.name "Your Name"
+    Sets the author name attached to your commits.
+
+git config --global user.email "you@example.com"
+    Sets the author email attached to your commits.
+
+git branch -M main
+    Renames the current branch to "main".
+
+STEP 2: COMMITS, BRANCHING AND MERGING
+--------------------------------------
+git status
+    Shows which files are untracked, modified or staged.
+
+git add .
+    Stages all new and changed files for the next commit.
+
+git commit -m "Initial commit: add index.html and about.html"
+    Records the initial state of the project as the first commit.
+
+git add index.html
+    Stages the modified index.html.
+
+git commit -m "Update index.html with a welcome heading"
+    Records the modification as the second commit.
+
+git branch feature
+    Creates a new branch named "feature".
+
+git checkout feature
+    Switches to the feature branch. (Equivalent: git switch feature)
+
+git add about.html
+    Stages the changes made on the feature branch.
+
+git commit -m "Add team section to about.html"
+    Commits the change on the feature branch.
+
+git checkout main
+    Switches back to the main branch. (Equivalent: git switch main)
+
+git merge feature --no-ff -m "Merge feature branch into main"
+    Merges feature into main. --no-ff forces a merge commit so the branch activity stays visible in the history.
+
+git log --oneline --graph --all
+    Displays the commit history as a compact graph, including all branches.
+
+STEP 3: .gitignore
+------------------
+echo "*.log" > .gitignore
+    Creates .gitignore and adds a rule to ignore all .log files.
+
+echo "temp/" >> .gitignore
+    Appends a rule to ignore the temp/ folder.
+
+mkdir temp ; echo "test" > temp/test.txt ; echo "error" > debug.log
+    Creates an ignored folder and an ignored log file to test the rules.
+
+git status
+    Confirms that debug.log and temp/ do not appear as untracked.
+
+git add .gitignore
+    Stages the .gitignore file.
+
+git commit -m "Add .gitignore for log files and temp folder"
+    Commits the .gitignore file.
+
+STEP 4: UNDO OPERATION
+----------------------
+echo "<!-- temporary change -->" >> index.html
+    Makes a small additional change.
+
+git add index.html
+    Stages the change.
+
+git commit -m "Temporary commit to be undone"
+    Creates an additional commit that will be undone.
+
+git log --oneline
+    Shows the history before the undo (the temporary commit is on top).
+
+git reset --hard HEAD~1
+    Undoes the last commit and discards its changes from the working directory, moving the branch pointer back one commit.
+
+git log --oneline
+    Shows the history after the undo (the temporary commit is gone).
+
+git status
+    Shows a clean working tree after the undo.
+
+(Alternative that keeps history: git revert HEAD
+    Creates a new commit that reverses the last commit.)
+
+STEP 5: GITHUB INTEGRATION
+--------------------------
+git remote add origin https://github.com/<your-username>/<repo-name>.git
+    Connects the local repository to the empty public GitHub repository.
+
+git remote -v
+    Lists the configured remotes to verify the connection.
+
+git push -u origin main
+    Pushes the main branch to GitHub and sets it as the upstream branch.
+
+git push origin feature
+    Pushes the feature branch to GitHub so the branch history is visible there.
